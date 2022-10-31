@@ -1,0 +1,166 @@
+---
+Title: Gelişmiş Yapılandırma Seçenekleri
+Weight: 52
+---
+
+:author: Tan S. Akıncı
+:email: tansiretakinci@protonmail.com
+
+:toc:
+
+:imagesdir: /images/en/user
+
+
+= Gelişmiş Yapılandırma Seçenekleri
+
+SuiteCRM tarafından indirilen dosyalara erişimi olan bir sistem yöneticisi bu bölümde açıklanan ek sistem yapılandırma seçeneklerine erişebilir.
+
+== Güncelleme Sihirbazını Engelleme, Modül Yapıcı ve Dosyaları Yedekleme
+
+Eğer sen bir sistem yöneticisi olarak SuiteCRM'in birden fazla kopyasını yönetiyorsan
+öbür yönetici yetkilerine sahip kullanıcıların sisteme değişiklik yapmasını
+engelleyerek sistem üzerinde tam yönetim sağlayabilirsin.
+(Burada veritabanı ve sistem dosyalarına erişimi olan yönetici yetkilerinden ziyade
+SuiteCRM içindeki yönetici yetkileri kast edilmektedir). Bunu yapmak için
+Güncelleme Sihirbazı'na, Modül Yapıcı'ya ve sistem dosyalarının yedeklenmesine erişimi kısıtlayabilirsin
+
+Bunun için `config.php` dosyasına aşağıdaki parametreleri gir :
+
+[source,php]
+['admin_access_control'] => true
+
+== Modül Yükleme Kontrolü
+
+Yönetici yetkilerine sahip (ancak `config.php` dosyasına erişimi olmayan)
+sistem üyelerinin sisteme üçüncü kaynak modül yüklemediğinden emin olmak
+için dosya yüklemelerini kontrol ettiğin belirli bir klasöre sınırlayabilirsin.
+Bu, sisteme yüklenen tüm modülleri kontrol etmenizi sağlar.
+
+
+Modül yüklemesini kontrol etmek için aşağıdakileri yap :
+
+Bunun için `config.php` dosyasına aşağıdaki parametreleri gir :
+
+[source,php]
+'use_common_ml_dir'=>'true',
+'common_ml_dir'=>'ml_directory',
+
+*ml_directory* - modüllerin yükleneceği klasörün ismi.
+
+== Sistem kaynaklarını sınırlamak
+
+Varsayılan olarak 1000'den fazla sorgu gerektiren herhangi bir veritabanı çağrısı
+sonlandırılır. İçe aktarım, dışa aktarım, senkronizasyon ve yönetim panelinde çalışma
+için maksimum talep sayısı 50,000'dir. Yani çok fazla sistem kaynağı tüketen işlemler
+durdurulur. Bu ayarları `config.php` dosyasındaki `default_limit` ve `special_query_limit`
+değişkenleri için <200b><200b> değerlerini belirterek değiştirebilirsin.
+
+== Linux'de dosya sistemi izinlerini belirlemek
+
+Eğer sistem Linux çalıştıran bir bilgisayarda çalışıyorsa
+```config.php``` dosyasında kullanıcı ve grup haklarını düzenleyerek
+sistem dosyalarının sahibini değiştirebilir ve aynı zamanda sistemdeki
+tüm dosya ve klasörlere erişimi kontrol edebilirsin.
+
+Aşağıdaki örnek, kullanıcı ve Apache grubu için okuma, yazma ve çalıştırma haklarını gösteriyor :
+
+[source,php]
+'default_permissions' => array(
+'dir_mode' => 02770,
+'file_mode' => 0660,
+'chown' => 'apache',
+'chgrp' => 'apache',),
+
+`dir_mode` parametresi için değeri ```02770 ``` oktal değerinin
+ondalık karşılığı olan ```1528``` olarak belirleyebilirsin. `file_mode` parametresi
+için değeri ```0660 ``` oktal değerinin ondalık karşılığı olan ```432``` olarak belirleyebilirsin.
+
+== İndirme klasörünün konumunu değiştirmek
+
+Sistem tarafından indirilen tüm dosyalar özel bir indirme klasöründe saklanır. Konumu, `config.php` dosyasındaki
+`upload_dir` değişkeni ile belirlenir. Varsayılan olarak bu, indirilen sistem klasöründe bulunan yükleme klasörüdür.
+Eğer gerekliyse onun konumu değiştirilebilir. Bunun için bir `upload_dir` değişkeninde yeni indirme klasörünün detaylı
+konumu belirtilmelidir.
+
+{{% notice note %}}
+Eski indirme klasöründeki tüm dosyaları belirlenen yeni klasöre kopyalamayı unutma.
+{{% /notice %}}
+
+Yeni klasör, web sunucusunu çalıştıran kullanıcı tarafından yazılabilir olmalıdır.
+
+== Önbellek klasörünün konumunu değiştirmek
+
+Sistem, aktif olarak veri önbelleğini kullanarak performansını büyük oranda arttırır.
+Önbelleklenen veriyi (derlenen temalar, e-posta verisi, vb.) saklamak için özel bir klasör kullanılır
+ve boyutu gayet büyük olabilir. Varsayılan olarak bu, indirilen sistem klasörünün
+önbellek klasörüdür. Eğer gerekliyse konumu değiştirilebilir. Bunun için `config.php`
+dosyasında bulunan `cache_dir` değişkenindeki veri yeni önbellek klasörünün detaylı konumuna ayarlanabilir.
+Aynı zamanda yeni önbellek klasörünü hedef alan bağlantı önbellek klasörü ile aynı yerde olmalıdır.
+Bu bazı önbelleklenen sistem dosyalarına erişim sağlanması için gereklidir.
+Yeni klasör, web sunucusunu çalıştıran kullanıcı tarafından yazılabilir olmalıdır.
+
+== Gelişmiş Süzgeçlerin Sıra Formu'nda kalıcı gösterimi
+
+SuiteCRM sürüm 7.8'de Basit ve Gelişmiş Arama [link:../../user/introduction/user-interface/search/[süzgeçi]
+yerine daha kompakt bir arayüz tanıtıldı.
+Eğer hala süzgeç alanlarının Sıra Formu üzerinde kalıcı olarak gösterimine (eski sürümlerdeki gibi)
+ihtiyacın varsa `config.php` dosyasına gerekli parametreleri aşağıdaki örnekteki gibi ekle :
+
+[source,php]
+'enable_legacy_search' =>
+  array (
+    0 => 'Accounts',
+    1 => 'Users',
+    2 => 'Employees',  ),
+
+ya da `config_override.php` dosyasına aşağıdaki satırları örnekteki gibi ekle :
+
+[source,php]
+$sugar_config['enable_legacy_search'][] = 'Accounts';
+$sugar_config['enable_legacy_search'][] = 'Users';
+$sugar_config['enable_legacy_search'][] = 'Employees';
+
+
+== Alt-paneller: aşağıya doğru açılan menüyü butonlarla değiştirmek
+
+Eğer gerekliyse belli bir alt-paneli aşağıya doğru açılan menü öğeleri yerine
+buton formatında görüntüleyebilirsin.
+Aşağıdaki örnek *Pre-contacts* modülündeki standart bir alt-panel ölçülerini (*Measures*) ve
+düzenlenmiş alt-panel geçmişini (*history*) gösteriyor.
+
+image:measures-subpanel.png[Replacing the drop-down menu with buttons]
+
+Alt-panel geçmişini (*history*) düzenlemek için aşağıdakileri yap :
+
+ . Bir dosya yarat `custom/Extension/modules/Leads/Ext/Layoutdefs/myCustomization.php`
+ . Ona bir satır ekle:
+
+[source,php]
+$layout_defs['Leads']['subpanel_setup']['history']['flat'] = 1;
+
+[start=3]
+ . Execute link:../administration-panel/system/#_repair[Quick Repair and Rebuild].
+
+== Kişiselleştirilmiş aşağıya doğru açılan menüleri düzenle
+
+Eğer link:../administration-panel/developer-tools/#_dropdown_editor[dropdown düzenleyicisinde] yaratılmış
+aşağıya doğru açılan menülerin düzenlenmesi gerekiyorsa bu düzenleyiciniin yardımıyla yapılabilir veya
+büyük miktarda veri düzenlediğiniz durumlarda daha işlevsel olacak şekilde php dosyasının doğrudan düzenlenmesiyle halledilebilir.
+Örneğin aşağıdaki İngilizce değerler içeren dosyanın düzenlenmesi için `/custom/include/language/en_us.lang.php` dosyasının düzenlenmesi gerekir.
+
+[source, php]
+----
+<? php
+$ GLOBALS ['app_list_strings'] ['planet_list'] = array (
+  'mars' => 'MARS',
+  'jupiter' => 'JUPITER',
+);
+$ GLOBALS ['app_list_strings'] ['satellite_list'] = array (
+  'mars_deimos' => 'DEIMOS',
+  'mars_phobos' => 'PHOBOS',
+  'jupiter_io' => 'IO',
+  'jupiter_europe' => 'EUROPE',
+  'jupiter_ganymede' => 'GANYMEDE',
+  'jupiter_callisto' => 'CALLISTO',
+);
+----

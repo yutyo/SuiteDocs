@@ -1,0 +1,81 @@
+---
+Title: Gelişmiş OpenAdmin
+weight: 70
+---
+
+:author: Tan S. Akıncı
+:email: tansiretakinci@protonmail.com
+
+:experimental:   ////this is here to allow btn:[]syntax used below
+
+:imagesdir: /images/en/admin
+
+:toc:
+
+== AOS Ayarları
+
+Gelişmiş OpenSales modül paketi Alıntılama, Faturalandırma ve
+yinelenen Sözleşme gibi Fırsat-Sonrası Satış işlemlerinin
+yönetilmesin sağlar.
+
+image:AdminAOSSettings.png[Gelişmiş OpenSales Ayarları]
+
+AOS Ayarları içinde aşağıdaki ayarları kişiselleştirebilirsin:
+
+* *Renewal Reminder Period* (Yineleme Hatırlatma Süresi) Bu, Sözleşme Bitiş Tarihi'nden
+ne kadar gün önce hatırlatma çağrısının yapılacağını belirler.
+* *Initial Invoice Number* (Başlangıç Fatura Numarası) Kullanıcıların başlangıç fatura
+numarası belirlemesini sağlar. Örneğin 20001.
+* *Initial Quote Number* (Başlangıç Sıra Numarası) Kullanıcıların başlangıç sıra
+numarası belirlemesini sağlar. Örneğin 459.
+* *Enable Line Items Groups* (Satır Öğe Gruplarını Etkinleştir) Seçildiği takdirde
+kullanıcılar satır öğelerini gruplara paketleyebilir.
+Seçilmediği takdirde AOS Grup işlevi kullanılamaz
+{{% notice note %}}
+Sıra Eşya Gruplarını Etkinleştirme seçeneği
+AOS'u kullanmadan önce seçilmelidir. Gruplara veya gruplardan göç etmek
+Alıntılar/Faturalar yaratıldığı gibi zorlaşır.
+{{% /notice %}}
+* *Add Tax to Line Total* (Toplam Satıra Vergi Ekle) Seçildiği takdirde
+Vergi Satır Öğeleri'ndeki Toplam Satır'a eklenecektir. Seçilmediği takdirde
+Tolam Satır, Vergi'yi içermez. 
+
+Yapılandırıldığı zaman AOS Ayararı'nı uygulamak için btn:[Kaydet]'e tıkla.
+
+== AOD Ayarları
+
+*SuiteCRM*'nin tam küresel aramasını etkinleştir veya devre dışı bırak.
+
+image:AdminAODSettings.png[Gelişmiş OpenDiscovery Ayarları]
+
+Tam metin küresel araması Zend Lucene arama framework'ü tarafından desteklenmektedir.
+Arama, standart küresel aramaya benzer çalışır, ancak belge ve öbür dosyalarda belirtilen
+metini arayarak standart aramanın sağladığı rekor-seviye aramaya fazladan özellik sağlar.
+
+*SuiteCRM*'de aramaya dair daha fazla bilg için
+link:../../../user/introduction/user-interface/search[Arama] dokümentasyonuna göz at.
+
+== AOP Ayarları
+
+Buradan Gelişmiş OpenPortal işlevini etkinleştirebilir veya devre dışı bırakabilir,
+Joomla URL'sini düzenleyebilir, vaka dağılım metodunu, 'tarafından' ismi ve e-posta adresini belrleyebilir
+ve portal tarafından kullanılan e-posta temasını düzenleyebilirsin.
+
+AOP hakkında daha fazla bilgi için
+link:../../../user/advanced-modules/cases-with-portal[Portal ile Vakalar] dökümentasyonuna göz at.
+
+image:AdminAOPSettings.png[Gelişmiş OpenPortal Ayarları]
+
+
+== İş Saatleri
+
+İş çalışma saatleri burada belirtilir.
+
+Bu ayarlar iş akışlarının ne zaman 'Sadece Zamanlayıcı'da'
+çalıştırılacağını ve "Çalışma Günlerin Belirle"'nin 
+link:../../../user/core-modules/projects[Project] kayıtlarında açıldığında kullanılacağını belirler.
+
+image:AdminBusinessHours.png[İş Saatleri]
+
+
+

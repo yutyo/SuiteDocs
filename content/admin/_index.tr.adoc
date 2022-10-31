@@ -1,0 +1,13 @@
+---
+title: "Yönetici Rehberi"
+weight: 30
+pre: "<b>3. </b>"
+---
+
+:author: Tan S. Akıncı
+:email: tansiretakinci@protonmail.com
+
+=== İçindekiler
+{{% children depth="2" showhidden="false" showhidden="true" %}}
+
+
